@@ -39,9 +39,9 @@ app.get("/",  function(req, res){
 
 app.get("/poolprogress",  async function(req, res){
 
- const info = await Poolprogress.find().clone();
 
-  res.send(info[0].pool);
+ const info = await Poolprogress.find().clone();
+  res.send({ number : info[0].pool});
 
   });
 
@@ -54,8 +54,8 @@ app.post("/addinvestor", async function(req, res){
     //console.log(req.body);
     try{    
       
-        console.log(req.body.address);
-        console.log(req.body.txhash);
+        //console.log(req.body.address);
+        //console.log(req.body.txhash);
         let investor = new Investors({
         address: req.body.address,
         txhash: req.body.txhash,
@@ -81,15 +81,15 @@ app.post("/addinvestor", async function(req, res){
  //save to pool
  app.post("/poolprogress", async function(req, res){
     
-    console.log("called add to pool progress");
-    console.log(req.body.amount);
+    //console.log("called add to pool progress");
+    //console.log(req.body.amount);
     const info = await Poolprogress.find().clone();
 
 
     try{    
     
       await Poolprogress.updateOne({_id: info[0]._id}, {$inc: { "pool": req.body.amount }} ).clone();
-      console.log(info[0].pool);
+      //console.log(info[0].pool);
     
       res.send(true);
   
